@@ -296,7 +296,7 @@ function spawnBalloon() {
             balloon.remove();
             clearInterval(moveInterval);
         }
-    }, 25); // Hız artırıldı (30ms -> 25ms, %20 artış)
+    }, 15); // Hız artırıldı (30ms -> 25ms, %20 artış)
 }
 
 // --- YILDIZ TOPLAMA OYUNU ---

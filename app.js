@@ -259,10 +259,19 @@ function spawnBalloon() {
             // Patlama efekti
             balloon.style.transform = 'scale(1.5)';
             balloon.style.opacity = '0';
-            setTimeout(() => balloon.remove(), 200);
 
-            // Yeni soru
-            nextBalloonTarget();
+            // Tüm balonları temizle (Yeni soru için)
+            const allBalloons = document.querySelectorAll('.balloon');
+            allBalloons.forEach(b => {
+                b.style.transition = 'all 0.2s';
+                b.style.transform = 'scale(0)';
+                b.style.opacity = '0';
+            });
+
+            setTimeout(() => {
+                document.getElementById('balloon-container').innerHTML = '';
+                nextBalloonTarget();
+            }, 300);
 
             // 100 puana ulaşınca bitir
             if (state.score >= 100) gameOver("Harika Balon Avcısı!");

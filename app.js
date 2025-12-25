@@ -235,12 +235,39 @@ function spawnBalloon() {
     // Eğer uygun yer bulunamazsa bu seferlik pas geç
     if (!isValidPosition) return;
 
+    // Mevcut balonların sayılarını al
+    const existingNumbers = existingBalloons.map(b => parseInt(b.textContent));
+
+    // Doğru cevap sahnede var mı?
+    const correctAnswer = state.currentQuestion.answer;
+    const isAnswerOnScreen = existingNumbers.includes(correctAnswer);
+
+    // %40 şansla doğru cevap, ancak sahnede zaten varsa zorla yanlış cevap üret
+    // Eğer sahnede yoksa normal şansını kullan
+    let isCorrect = Math.random() < 0.4;
+    if (isAnswerOnScreen) isCorrect = false;
+
+    let number;
+    if (isCorrect) {
+        number = correctAnswer;
+    } else {
+        // Benzersiz yanlış cevap bulma (10 deneme)
+        let foundUnique = false;
+        for (let k = 0; k < 10; k++) {
+            const wrong = (Math.floor(Math.random() * 80) + 4);
+            // Yanlış cevap; doğru cevaba eşit olmamalı VE sahnede olmamalı
+            if (wrong !== correctAnswer && !existingNumbers.includes(wrong)) {
+                number = wrong;
+                foundUnique = true;
+                break;
+            }
+        }
+        // Eğer benzersiz sayı bulamadıysak (çok nadir), bu turu pas geç
+        if (!foundUnique) return;
+    }
+
     const balloon = document.createElement('div');
     balloon.className = 'balloon';
-
-    // %40 şansla doğru cevap, %60 rastgele
-    const isCorrect = Math.random() < 0.4;
-    const number = isCorrect ? state.currentQuestion.answer : (Math.floor(Math.random() * 80) + 4);
 
     balloon.textContent = number;
     balloon.style.left = left + 'px';
@@ -296,7 +323,7 @@ function spawnBalloon() {
             balloon.remove();
             clearInterval(moveInterval);
         }
-    }, 15); // Hız artırıldı (30ms -> 25ms, %20 artış)
+    }, 17); // Hız artırıldı (25ms -> 17ms, ~%50 artış)
 }
 
 // --- YILDIZ TOPLAMA OYUNU ---

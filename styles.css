@@ -1,0 +1,435 @@
+:root {
+    --primary-color: #FF6B95;
+    --secondary-color: #845EC2;
+    --accent-color: #FFC75F;
+    --bg-gradient: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 99%, #FECFEF 100%);
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --font-family: 'Fredoka', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+    background: var(--bg-gradient);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* iPhone Safe Areas */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+}
+
+.app-container {
+    width: 100%;
+    max-width: 450px;
+    /* iPhone genişliği gibi */
+    height: 100%;
+    position: relative;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+    animation: fadeIn 0.5s ease;
+}
+
+.screen.active {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ana Menü */
+#main-menu {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+h1 {
+    color: #fff;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+}
+
+p {
+    color: #fff;
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.menu-btn {
+    background: var(--card-bg);
+    border: none;
+    padding: 20px;
+    border-radius: 20px;
+    font-family: var(--font-family);
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+    touch-action: manipulation;
+}
+
+.menu-btn:active {
+    transform: scale(0.95);
+}
+
+.menu-btn .icon {
+    font-size: 2rem;
+}
+
+.category-1 {
+    border-left: 10px solid #FF6B95;
+}
+
+.category-2 {
+    border-left: 10px solid #00D2FC;
+}
+
+.category-3 {
+    border-left: 10px solid #FFC75F;
+}
+
+/* Oyun Ekranları Genel */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: bold;
+}
+
+.back-btn {
+    background: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    height: 50px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.2s;
+    touch-action: manipulation;
+    color: var(--secondary-color);
+}
+
+.back-btn .icon {
+    font-size: 1.5rem;
+}
+
+.back-btn:active {
+    transform: scale(0.95);
+}
+
+/* Hızlı Cevap */
+#game-quick .question-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.mascot {
+    font-size: 4rem;
+    animation: bounce 2s infinite;
+}
+
+.question {
+    font-size: 4rem;
+    color: #fff;
+    text-shadow: 2px 2px 0 var(--secondary-color);
+    margin: 20px 0;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding-bottom: 40px;
+}
+
+.option-btn {
+    background: #fff;
+    border: none;
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 2rem;
+    color: var(--secondary-color);
+    font-family: var(--font-family);
+    box-shadow: 0 5px 0 #ddd;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.option-btn:active {
+    transform: translateY(5px);
+    box-shadow: none;
+}
+
+.option-btn.correct {
+    background: #4CC9F0;
+    color: #fff;
+    box-shadow: 0 5px 0 #3aa0c0;
+}
+
+.option-btn.wrong {
+    background: #F72585;
+    color: #fff;
+    box-shadow: 0 5px 0 #c71f6d;
+}
+
+/* Balon Patlatma */
+#game-balloon {
+    overflow: hidden;
+}
+
+.target-question {
+    background: #fff;
+    color: var(--secondary-color);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1.5rem;
+}
+
+#balloon-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.balloon {
+    position: absolute;
+    bottom: -100px;
+    width: 80px;
+    height: 100px;
+    background: radial-gradient(circle at 30% 30%, #ff8fab, #fb6f92);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    user-select: none;
+}
+
+.balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* Yıldız Toplama */
+#game-star .star-collection-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.question-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+}
+
+.big-question {
+    font-size: 3.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+}
+
+#star-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 2rem;
+    text-align: center;
+    border: 3px solid #eee;
+    border-radius: 15px;
+    font-family: var(--font-family);
+    margin-bottom: 15px;
+    outline: none;
+}
+
+#star-input:focus {
+    border-color: var(--primary-color);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--accent-color);
+    border: none;
+    border-radius: 15px;
+    font-size: 1.5rem;
+    color: white;
+    font-family: var(--font-family);
+    cursor: pointer;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 30px;
+    text-align: center;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.5);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.restart-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 99;
+}
+
+/* Mutlu Yıldız Pop-up */
+.star-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 8rem;
+    pointer-events: none;
+    z-index: 200;
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+    filter: drop-shadow(0 0 20px gold);
+}
+
+.star-popup.show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    animation: rotateStar 1s ease-out;
+}
+
+@keyframes rotateStar {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(-180deg);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.2) rotate(10deg);
+    }
+
+    70% {
+        transform: translate(-50%, -50%) scale(0.9) rotate(-10deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1) rotate(0);
+    }
+}

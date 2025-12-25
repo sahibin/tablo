@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mira'nın Çarpım Dünyası</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Ana Menü -->
+        <div id="main-menu" class="screen active">
+            <header>
+                <h1>Merhaba Mira! 🎀</h1>
+                <p>Bugün hangi oyunu oynamak istersin?</p>
+            </header>
+
+            <div class="menu-buttons">
+                <button class="menu-btn category-1" onclick="selectGame('quick')">
+                    <span class="icon">⚡</span>
+                    <span class="text">Hızlı Cevap</span>
+                </button>
+
+                <button class="menu-btn category-2" onclick="selectGame('balloon')">
+                    <span class="icon">🎈</span>
+                    <span class="text">Balon Patlatma</span>
+                </button>
+
+                <button class="menu-btn category-3" onclick="selectGame('star')">
+                    <span class="icon">⭐</span>
+                    <span class="text">Yıldız Toplama</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Hızlı Cevap Oyunu -->
+        <div id="game-quick" class="screen game-screen">
+            <div class="game-header">
+                <button class="back-btn" onclick="showMainMenu()">
+                    <span class="icon">🏠</span>
+                    <span class="text">ANA MENÜ</span>
+                </button>
+                <div class="score-board">Puan: <span id="quick-score">0</span></div>
+                <div class="timer">Süre: <span id="quick-timer">30</span></div>
+            </div>
+
+            <div class="question-area">
+                <div class="mascot">🐰</div>
+                <div class="question" id="quick-question">2 x 3 = ?</div>
+            </div>
+
+            <div class="options-grid" id="quick-options">
+                <!-- Seçenekler JS ile gelecek -->
+            </div>
+        </div>
+
+        <!-- Balon Patlatma Oyunu -->
+        <div id="game-balloon" class="screen game-screen">
+            <div class="game-header">
+                <button class="back-btn" onclick="showMainMenu()">
+                    <span class="icon">🏠</span>
+                    <span class="text">ANA MENÜ</span>
+                </button>
+                <div class="score-board">Puan: <span id="balloon-score">0</span></div>
+                <div class="target-question">Soru: <span id="balloon-question">?</span></div>
+            </div>
+
+            <div class="balloon-container" id="balloon-container">
+                <!-- Balonlar JS ile gelecek -->
+            </div>
+        </div>
+
+        <!-- Yıldız Toplama Oyunu -->
+        <div id="game-star" class="screen game-screen">
+            <div class="game-header">
+                <button class="back-btn" onclick="showMainMenu()">
+                    <span class="icon">🏠</span>
+                    <span class="text">ANA MENÜ</span>
+                </button>
+                <div class="stars-display">⭐ <span id="star-count">0</span>/10</div>
+            </div>
+
+            <div class="star-collection-area">
+                <div class="question-card">
+                    <div id="star-question" class="big-question">5 x 5</div>
+                    <input type="number" id="star-input" inputmode="numeric" placeholder="?">
+                    <button class="submit-btn" onclick="checkStarAnswer()">Kontrol Et</button>
+                </div>
+                <div class="message-area" id="star-message"></div>
+            </div>
+        </div>
+
+        <!-- Sonuç Ekranı -->
+        <div id="result-screen" class="modal">
+            <div class="modal-content">
+                <h2>Harikasın Mira! 🎉</h2>
+                <p id="result-text">Oyun bitti!</p>
+                <button class="restart-btn" onclick="showMainMenu()">Tekrar Oyna</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="happy-star-popup" class="star-popup">🌟</div>
+    <canvas id="confetti-canvas"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
